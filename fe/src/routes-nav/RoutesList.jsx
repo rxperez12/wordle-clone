@@ -1,4 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
+import WordleGame from "../wordle-game/WordleGame";
 
 /** AppComponent for summary
  *
@@ -8,35 +9,19 @@ import { Routes, Route, Navigate } from "react-router-dom";
  * State:
  * -
  *
- * call list
+ * App -> RoutesList -> Wordle
  */
 function RoutesList() {
   return (
     <div className="pt-5">
       <Routes>
-        {!currentUser && (
-          <>
-            <Route
-              path="/login"
-              element={<LoginForm login={login} />}
-            />
-            <Route
-              path="/signup"
-              element={<SignupForm signup={signup} />}
-            />
-          </>
-        )}
-
         <Route
           path="/"
-          element={<Homepage />}
-        />
-
-        <Route
-          path="*"
-          element={<Navigate to="/" />}
+          element={<WordleGame />}
         />
       </Routes>
     </div>
   );
 }
+
+export default RoutesList;
