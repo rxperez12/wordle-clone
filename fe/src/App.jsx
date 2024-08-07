@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
 import NavBar from "./routes-nav/NavBar";
+import WordleGame from "./wordle-game/WordleGame";
 
 import "./App.css";
+
+const TEST_WORD = "apple";
 
 /** Component for entire page.
  *
@@ -24,7 +27,7 @@ function App() {
         <NavBar />
       </BrowserRouter>
       <main>
-        <h1>Wordle</h1>,
+        <WordleGame />
       </main>
     </div>
   );
