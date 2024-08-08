@@ -1,0 +1,12 @@
+.GuessLetter {
+  max-height: 40px;
+  max-width: 40px;
+}
+
+.found {
+  background-color: green;
+}
+
+.contain {
+  background-color: goldenrod;
+}
