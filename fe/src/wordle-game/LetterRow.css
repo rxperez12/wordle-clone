@@ -1,0 +1,4 @@
+.LetterWord {
+  display: flex;
+  flex-direction: row;
+}
