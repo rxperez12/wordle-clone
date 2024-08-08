@@ -1,16 +1,28 @@
+import GuessLetter from "./GuessLetter";
+import "./LetterRow.css";
+
 /** AppComponent for summary
  *
  * Props:
- * -
+ * -guess - array with letter objects that contain with letter and category options
  *
  * State:
- * -
+ * - Noone
  *
- * call list
+ * LetterRow -> Letter
  */
 
-function LetterRow() {
-  return <div> Multiple row of letters</div>;
+function LetterRow({ guess }) {
+  return (
+    <div className="LetterRow">
+      {guess.map((letterChoice) => (
+        <GuessLetter
+          letter={letterChoice.letter}
+          letterCategory={letterChoice.category}
+        />
+      ))}
+    </div>
+  );
 }
 
 export default LetterRow;
