@@ -14,7 +14,7 @@ import "./LetterRow.css";
 
 function LetterRow({ guess }) {
   return (
-    <div className="LetterRow">
+    <div className="LetterRow d-flex p-2 justify-content-center">
       {guess.map((letterChoice) => (
         <GuessLetter
           letter={letterChoice.letter}
