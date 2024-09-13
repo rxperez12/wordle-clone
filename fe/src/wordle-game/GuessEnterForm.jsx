@@ -15,6 +15,7 @@ function GuessEnterForm({ handleGuess }) {
   const [formData, setFormData] = useState("");
   const [formErrors, setFormErrors] = useState([]);
 
+  /* Handle form submit and catch errors, adding them to formError state*/
   function handleSubmit(evt) {
     evt.preventDefault();
     try {
@@ -24,6 +25,7 @@ function GuessEnterForm({ handleGuess }) {
     }
   }
 
+  /* Control form changes by adding form inputs to formData state*/
   function handleChange(evt) {
     setFormData(evt.target.value);
   }
