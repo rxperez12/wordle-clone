@@ -1,23 +1,32 @@
 import { useState } from "react";
 
-/** AppComponent for GuessEnterField
+/** AppComponent for GuessEnterForm
  *
  * Props:
+ * -handleGuess
  *
  * State:
- * -formData
+ * -formData: word for guess
  *
- * LetterRow -> GuessLetter
+ * WordleGame -> GuessEnterForm
  */
 
 function GuessEnterForm({ handleGuess }) {
   const [formData, setFormData] = useState("");
+  const [formErrors, setFormErrors] = useState([]);
 
   function handleSubmit(evt) {
     evt.preventDefault();
+    try {
+      handleGuess(formData);
+    } catch (err) {
+      setFormErrors(err);
+    }
   }
 
-  function handleChange() {}
+  function handleChange(evt) {
+    setFormData(evt.target.value);
+  }
 
   return (
     <div>
@@ -30,6 +39,13 @@ function GuessEnterForm({ handleGuess }) {
           onChange={handleChange}
           required
         ></input>
+
+        {formErrors.length ? (
+          <Alert
+            type="danger"
+            messages={formErrors}
+          />
+        ) : null}
       </form>
     </div>
   );
