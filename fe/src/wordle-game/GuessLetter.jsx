@@ -4,12 +4,13 @@ import "./GuessLetter.css";
  *
  * Props:
  * - letter
- * - letterCategory:
+ * - letterCategory: str, either "correct" if letter is incorrect position,
+ *    or "exists" if letter is in word but in incorrect position
  *
  * State:
  * -None
  *
- * LetterRow -> Letter
+ * LetterRow -> GuessLetter
  */
 
 function GuessLetter({ letter, letterCategory }) {
