@@ -1,18 +1,18 @@
 import GuessLetter from "./GuessLetter";
-import "./LetterRow.css";
+import "./GuessWord.css";
 
-/** AppComponent for summary
+/** GuessWord component
  *
  * Props:
  * -guess - array with letter objects that contain with letter and category options
  *
  * State:
- * - Noone
+ * - None
  *
  * LetterRow -> Letter
  */
 
-function LetterRow({ guess }) {
+function GuessWord({ guess }) {
   return (
     <div className="LetterRow d-flex p-2 justify-content-center">
       {guess.map((letterChoice) => (
@@ -25,4 +25,4 @@ function LetterRow({ guess }) {
   );
 }
 
-export default LetterRow;
+export default GuessWord;
