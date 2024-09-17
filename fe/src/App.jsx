@@ -27,7 +27,7 @@ function App() {
         <NavBar />
       </BrowserRouter>
       <main>
-        <WordleGame />
+        <WordleGame answer={"apple"} />
       </main>
     </div>
   );
