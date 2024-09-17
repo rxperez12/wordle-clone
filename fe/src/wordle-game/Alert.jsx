@@ -2,7 +2,7 @@
  *
  * GuessEnterForm -> Alert
  */
-function Alert({ type = "danger", messages = {} }) {
+function Alert({ type = "danger", messages = [] }) {
   console.debug("Alert", "type=", type, "messages=", messages);
 
   return (
@@ -10,9 +10,14 @@ function Alert({ type = "danger", messages = {} }) {
       className={`alert alert-${type}`}
       role="alert"
     >
-      {messages.map((error) => {
-        <p className="mb-0 small">{error}</p>;
-      })}
+      {messages.map((error) => (
+        <p
+          className="mb-0 small"
+          key={error}
+        >
+          {error}
+        </p>
+      ))}
     </div>
   );
 }
