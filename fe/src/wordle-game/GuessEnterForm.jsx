@@ -1,4 +1,8 @@
 import { useState } from "react";
+import { useForm } from "react-hook-form";
+import { ErrorMessage } from "@hookform/error-message";
+
+const WORD_LENGTH = 5;
 
 /** AppComponent for GuessEnterForm
  *
@@ -12,42 +16,50 @@ import { useState } from "react";
  */
 
 function GuessEnterForm({ handleGuess }) {
-  const [formData, setFormData] = useState("");
-  const [formErrors, setFormErrors] = useState([]);
+  const {
+    register,
+    handleSubmit,
+    watch,
+    formState: { errors },
+  } = useForm({ criteriaMode: "all" });
 
-  /* Handle form submit and catch errors, adding them to formError state*/
-  function handleSubmit(evt) {
-    evt.preventDefault();
-    try {
-      handleGuess(formData);
-    } catch (err) {
-      setFormErrors(err);
-    }
-  }
-
-  /* Control form changes by adding form inputs to formData state*/
-  function handleChange(evt) {
-    setFormData(evt.target.value);
+  function onSubmit(data) {
+    console.log(data);
   }
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <label className="form-label">Word:</label>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <label className="form-label">Guess:</label>
         <input
-          name="word"
-          className="form-control"
-          value={formData}
-          onChange={handleChange}
-          required
+          {...register("word", {
+            required: "This is required.",
+            maxLength: {
+              value: 5,
+              message: `Guess must be a ${WORD_LENGTH} letter word`,
+            },
+            minLength: {
+              value: 5,
+              message: `Guess must be a ${WORD_LENGTH} letter word`,
+            },
+            pattern: {
+              value: /^[A-Za-z]+$/i,
+              message: "Word must consist of only letters",
+            },
+          })}
+          aria-invalid={errors.word ? "true" : "false"}
         ></input>
 
-        {formErrors.length ? (
-          <Alert
-            type="danger"
-            messages={formErrors}
-          />
-        ) : null}
+        <ErrorMessage
+          errors={errors}
+          name="word"
+          render={({ messages }) =>
+            messages &&
+            Object.entries(messages).map(([type, message]) => (
+              <p key={type}>{message}</p>
+            ))
+          }
+        />
       </form>
     </div>
   );
