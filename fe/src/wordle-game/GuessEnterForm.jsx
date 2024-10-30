@@ -25,7 +25,8 @@ function GuessEnterForm({ handleGuess }) {
 
   /* Handle form submit and call function from parent */
   function onSubmit(data) {
-    console.log(data);
+    console.log("onSubmit data", data);
+    handleGuess(data.word);
   }
 
   return (
