@@ -5,15 +5,13 @@ import WordleGame from "./wordle-game/WordleGame";
 
 import "./App.css";
 
-const TEST_WORD = "apple";
-
 /** Component for entire page.
  *
  * Props: none
  * State: none
  *
+ * App -> {WordleGame}
  */
-
 function App() {
   const [count, setCount] = useState(0);
 
@@ -22,14 +20,9 @@ function App() {
   }
 
   return (
-    <div className="App">
-      <BrowserRouter>
-        <NavBar />
-      </BrowserRouter>
-      <main>
-        <WordleGame answer={"apple"} />
-      </main>
-    </div>
+    <main>
+      <WordleGame answer={"apple"} />
+    </main>
   );
 }
 
