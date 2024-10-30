@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import "./GuessEnterForm.css";
 
 const WORD_LENGTH = 5;
 
@@ -23,6 +23,7 @@ function GuessEnterForm({ handleGuess }) {
     formState: { errors },
   } = useForm({ criteriaMode: "all" });
 
+  /* Handle form submit and call function from parent */
   function onSubmit(data) {
     console.log(data);
   }
@@ -35,11 +36,11 @@ function GuessEnterForm({ handleGuess }) {
           {...register("word", {
             required: "This is required.",
             maxLength: {
-              value: 5,
+              value: WORD_LENGTH,
               message: `Guess must be a ${WORD_LENGTH} letter word`,
             },
             minLength: {
-              value: 5,
+              value: WORD_LENGTH,
               message: `Guess must be a ${WORD_LENGTH} letter word`,
             },
             pattern: {
@@ -51,6 +52,7 @@ function GuessEnterForm({ handleGuess }) {
         ></input>
 
         <ErrorMessage
+          className="ErrorMessage"
           errors={errors}
           name="word"
           render={({ messages }) =>
