@@ -1,8 +1,25 @@
-import { useForm } from "react-hook-form";
+import { Controller, useFormContext } from "react-hook-form";
 import { ErrorMessage } from "@hookform/error-message";
+import QwertyKeyboard from "./QwertyKeyboard";
 import "./GuessEnterForm.css";
 
 const WORD_LENGTH = 5;
+
+const wordOptions = {
+  required: "This is required.",
+  maxLength: {
+    value: WORD_LENGTH,
+    message: `Guess must be a ${WORD_LENGTH} letter word`,
+  },
+  minLength: {
+    value: WORD_LENGTH,
+    message: `Guess must be a ${WORD_LENGTH} letter word`,
+  },
+  pattern: {
+    value: /^[A-Za-z]+$/i,
+    message: "Word must consist of only letters",
+  },
+};
 
 /** AppComponent for GuessEnterForm
  *
@@ -17,11 +34,10 @@ const WORD_LENGTH = 5;
 
 function GuessEnterForm({ handleGuess }) {
   const {
-    register,
+    control,
     handleSubmit,
-    watch,
     formState: { errors },
-  } = useForm({ criteriaMode: "all" });
+  } = useFormContext({ criteriaMode: "all" });
 
   /* Handle form submit and call function from parent */
   function onSubmit(data) {
@@ -33,7 +49,7 @@ function GuessEnterForm({ handleGuess }) {
     <div>
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className="form-label">Guess:</label>
-        <input
+        {/* <input
           {...register("word", {
             required: "This is required.",
             maxLength: {
@@ -50,8 +66,18 @@ function GuessEnterForm({ handleGuess }) {
             },
           })}
           aria-invalid={errors.word ? "true" : "false"}
-        ></input>
-
+        ></input> */}
+        <Controller
+          control={control}
+          name="word"
+          rules={wordOptions}
+          render={({ field: { value, onChange } }) => (
+            <input
+              value={value}
+              onChange={onChange}
+            />
+          )}
+        />
         <ErrorMessage
           className="ErrorMessage"
           errors={errors}
@@ -63,6 +89,25 @@ function GuessEnterForm({ handleGuess }) {
             ))
           }
         />
+
+        <Controller
+          control={control}
+          name="word"
+          rules={wordOptions}
+          render={({ field: { value, onChange } }) => (
+            <QwertyKeyboard
+              value={value}
+              onKeyPress={onChange}
+            />
+          )}
+        />
+
+        <button
+          className="btn btn-primary"
+          type="submit"
+        >
+          Submit
+        </button>
       </form>
     </div>
   );
