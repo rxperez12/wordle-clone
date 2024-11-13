@@ -1,7 +1,12 @@
 .GuessLetter {
-  max-height: 40px;
+  height: 40px;
   width: 40px;
   margin: 5px;
+  border: 1.5px solid black;
+  font-size: 30px;
+  text-align: center;
+  text-transform: capitalize;
+  font-weight: 400;
 }
 
 .correct {
