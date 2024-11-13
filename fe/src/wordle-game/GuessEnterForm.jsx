@@ -46,33 +46,16 @@ function GuessEnterForm({ handleGuess }) {
   }
 
   return (
-    <div>
+    <div className="GuessEnterForm">
       <form onSubmit={handleSubmit(onSubmit)}>
         <label className="form-label">Guess:</label>
-        {/* <input
-          {...register("word", {
-            required: "This is required.",
-            maxLength: {
-              value: WORD_LENGTH,
-              message: `Guess must be a ${WORD_LENGTH} letter word`,
-            },
-            minLength: {
-              value: WORD_LENGTH,
-              message: `Guess must be a ${WORD_LENGTH} letter word`,
-            },
-            pattern: {
-              value: /^[A-Za-z]+$/i,
-              message: "Word must consist of only letters",
-            },
-          })}
-          aria-invalid={errors.word ? "true" : "false"}
-        ></input> */}
         <Controller
           control={control}
           name="word"
           rules={wordOptions}
           render={({ field: { value, onChange } }) => (
             <input
+              className="form-control"
               value={value}
               onChange={onChange}
             />
@@ -89,6 +72,12 @@ function GuessEnterForm({ handleGuess }) {
             ))
           }
         />
+        <button
+          className="btn btn-primary my-2"
+          type="submit"
+        >
+          Submit
+        </button>
 
         <Controller
           control={control}
@@ -101,13 +90,6 @@ function GuessEnterForm({ handleGuess }) {
             />
           )}
         />
-
-        <button
-          className="btn btn-primary"
-          type="submit"
-        >
-          Submit
-        </button>
       </form>
     </div>
   );
