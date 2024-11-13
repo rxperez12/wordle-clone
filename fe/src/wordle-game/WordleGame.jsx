@@ -1,11 +1,13 @@
-import GuessEnterForm from "./GuessEnterForm";
 import { useState, useEffect } from "react";
-import { compareWordandAnswer, checkValidEntry } from "../gameLogic.js";
+import { compareWordandAnswer, checkCorrectAnswer } from "../gameLogic.js";
 import { useQuery } from "@tanstack/react-query";
 import GuessWordList from "./GuessWordList.jsx";
+import GuessProvider from "./GuessProvider.jsx";
+import "./WordleGame.css";
 
 const BASE_URL = "http://localhost:8000";
 const CURRENT_GUESSES = 5;
+
 /** WordleGame component
  *
  * State:
@@ -26,10 +28,9 @@ const CURRENT_GUESSES = 5;
  * App -> WordleGame -> LetterRow, GuessEnterForm
  */
 
-function WordleGame({ answer }) {
+function WordleGame() {
   const [guesses, setGuesses] = useState([]);
-  const [word, setWord] = useState("");
-  const { isPending, error, data, isLoading } = useQuery({
+  const { error, data, isLoading } = useQuery({
     queryFn: retrieveWord,
     queryKey: ["word"],
   });
@@ -46,11 +47,20 @@ function WordleGame({ answer }) {
   /* Handles guess input from user and add guess to state*/
   function handleGuess(word) {
     console.debug("handleGuess:", word);
-    const guess = compareWordandAnswer(answer, word);
-    console.log("guess data structure", guess);
+    // TODO: verify if word is valid from API
+    const guess = compareWordandAnswer(data, word);
     setGuesses([...guesses, guess]);
+
     console.debug(guesses);
   }
+
+  /* Handle game reset */
+  function handleReset() {
+    setGuesses([]);
+  }
+
+  /*Handle new game*/
+  function handleNewGame() {}
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -68,8 +78,22 @@ function WordleGame({ answer }) {
   return (
     <div className="WordleGame m-3">
       <h1>Wordle</h1>
-      <GuessEnterForm handleGuess={handleGuess} />
+      <button
+        className="btn btn-primary m-2"
+        onClick={handleNewGame}
+      >
+        New Game
+      </button>
+      <button
+        className="btn btn-primary m-2"
+        onClick={handleReset}
+      >
+        Reset
+      </button>
       <GuessWordList guesses={guesses} />
+      {guesses.length <= CURRENT_GUESSES && (
+        <GuessProvider handleGuess={handleGuess} />
+      )}
     </div>
   );
 }
