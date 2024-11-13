@@ -2,7 +2,7 @@ import { counter } from "./utils.js";
 
 const wordLength = 5;
 
-/**
+/** TODO: rewrite to be clearer
  * Given answer, and guess as lower case strings,
  * compares guess with answer and return array with objects for each letter of guess
  * with key 'letter' indicating the guessed letter, 'category' which is either
@@ -36,25 +36,43 @@ function compareWordandAnswer(answer, guess) {
   }
   return guessComparison;
 }
-
 /**
- * Given string guess, validates string and throws errors if string is invalid
- * entry for game of wordle. Returns true if guess is valid
+ * Given guess like [{ 'letter': str, category: str }, ...], checks if every
+ * category is 'correct'. If so returns true, else returns false
  */
-function checkValidEntry(guess) {
-  const errs = [];
-  if (guess.length !== wordLength) {
-    errs.push(`Guess must have ${wordLength} characters`);
+function checkCorrectAnswer(guess) {
+  return guess.every(elem => elem.category === 'correct');
+}
+
+/** Given array of guesses like [{ 'letter': str, category: str }, ...], return
+ * dictionary of with letters as keys and the category of correct, exists, or ''
+ * as the value
+ */
+function getAllGuessedLetters(guesses) {
+  console.log('getAllGuessedLetters', guesses);
+  const guessLetters = guesses.flat();
+  const lettersGuessed = {};
+  console.log('flat letter array', guessLetters);
+
+  for (const guessLetter of guessLetters) {
+    console.log('guessLetter', guessLetter);
+    const currentLetter = guessLetter.letter;
+    if (!(currentLetter in lettersGuessed)) {
+      lettersGuessed[currentLetter] = guessLetter.category;
+    } else {
+      const savedCategory = lettersGuessed[currentLetter];
+      const currentCategory = guessLetter.category;
+      if (savedCategory === '' && currentCategory !== '') {
+        lettersGuessed[currentLetter] = currentCategory;
+      }
+      if (savedCategory === 'exists' && currentCategory === 'correct') {
+        lettersGuessed[currentLetter] = currentCategory;
+      }
+    }
   }
 
-  //   if (!checkWordExists(guess)) {
-  //     throw new Error(`Guess must be a valid dictionary word`);
-  //   }
-  if (errs.length > 0) {
-    throw new Error(errs);
-  }
+  return lettersGuessed;
 }
 
 
-
-export { compareWordandAnswer, checkValidEntry };
+export { compareWordandAnswer, checkCorrectAnswer, getAllGuessedLetters };
