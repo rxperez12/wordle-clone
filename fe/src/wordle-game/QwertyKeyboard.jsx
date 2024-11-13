@@ -1,14 +1,17 @@
 import React, { useState } from "react";
+import "./QwertyKeyboard.css";
 
 /** AppComponent for summary
  *
  * Props:
- * -
+ * -value
+ * -onKeyPress
+ *
  *
  * State:
  * -
  *
- * call list
+ *
  */
 function QwertyKeyboard({ value, onKeyPress }) {
   const handleKeyPress = (key) => {
@@ -23,15 +26,15 @@ function QwertyKeyboard({ value, onKeyPress }) {
   ];
 
   return (
-    <div>
+    <div className="QwertyKeyboard d-flex flex-column align-items-center">
       {rows.map((row, rowIndex) => (
         <div
           key={rowIndex}
-          className="keyboard-row"
+          className="keyboard-row m-1 "
         >
           {row.map((key) => (
             <button
-              className="btn"
+              className={`QwertyKeyButton btn m-1 `}
               key={key}
               onClick={(e) => {
                 e.preventDefault();
