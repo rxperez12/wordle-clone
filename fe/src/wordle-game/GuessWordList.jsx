@@ -1,4 +1,5 @@
 import GuessWord from "./GuessWord";
+import "./GuessWordList.css";
 
 /** AppComponent for summary
  *
@@ -13,7 +14,7 @@ import GuessWord from "./GuessWord";
 function GuessWordList({ guesses }) {
   console.debug("GuessWordList", "guesses=", guesses);
   return (
-    <div>
+    <div className="GuessWordList">
       {guesses.map((guess) => (
         <GuessWord guess={guess} />
       ))}
