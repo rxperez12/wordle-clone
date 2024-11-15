@@ -13,15 +13,9 @@ import "./App.css";
  * App -> {WordleGame}
  */
 function App() {
-  const [count, setCount] = useState(0);
-
-  function incrCount() {
-    setCount((count) => count + 1);
-  }
-
   return (
     <main>
-      <WordleGame answer={"apple"} />
+      <WordleGame />
     </main>
   );
 }
