@@ -25,6 +25,7 @@ const wordOptions = {
  *
  * Props:
  * -handleGuess
+ * -guesses
  *
  * State:
  * -formData: word for guess
@@ -32,7 +33,7 @@ const wordOptions = {
  * WordleGame -> GuessEnterForm
  */
 
-function GuessEnterForm({ handleGuess }) {
+function GuessEnterForm({ handleGuess, guesses }) {
   const {
     control,
     handleSubmit,
@@ -87,6 +88,7 @@ function GuessEnterForm({ handleGuess }) {
             <QwertyKeyboard
               value={value}
               onKeyPress={onChange}
+              guesses={guesses}
             />
           )}
         />
