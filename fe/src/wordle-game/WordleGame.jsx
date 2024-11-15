@@ -6,7 +6,7 @@ import GuessProvider from "./GuessProvider.jsx";
 import "./WordleGame.css";
 
 const BASE_URL = "http://localhost:8000";
-const CURRENT_GUESSES = 5;
+const GUESSES_ALLOWED = 5;
 
 /** WordleGame component
  *
@@ -30,7 +30,7 @@ const CURRENT_GUESSES = 5;
 
 function WordleGame() {
   const [guesses, setGuesses] = useState([]);
-  const { error, data, isLoading } = useQuery({
+  const { error, data, isLoading, refetch } = useQuery({
     queryFn: retrieveWord,
     queryKey: ["word"],
   });
@@ -44,23 +44,24 @@ function WordleGame() {
     return response.json();
   }
 
-  /* Handles guess input from user and add guess to state*/
+  /* Handle guess input from user and add guess to state*/
   function handleGuess(word) {
     console.debug("handleGuess:", word);
     // TODO: verify if word is valid from API
     const guess = compareWordandAnswer(data, word);
     setGuesses([...guesses, guess]);
-
-    console.debug(guesses);
   }
 
-  /* Handle game reset */
-  function handleReset() {
-    setGuesses([]);
-  }
+  /** Check lose and win condititions and return true if user input allowed and
+   * false if not
+   */
+  function checkPlayableGame() {
+    if (guesses.length === 0) return true;
 
-  /*Handle new game*/
-  function handleNewGame() {}
+    let lastGuess = guesses[guesses.length - 1];
+    console.log("checkCorrectAnswer", checkCorrectAnswer(lastGuess));
+    return guesses.length <= GUESSES_ALLOWED && !checkCorrectAnswer(lastGuess);
+  }
 
   if (isLoading) {
     return <div>Loading...</div>;
@@ -80,19 +81,31 @@ function WordleGame() {
       <h1>Wordle</h1>
       <button
         className="btn btn-primary m-2"
-        onClick={handleNewGame}
+        onClick={() => {
+          refetch();
+          setGuesses([]);
+        }}
       >
         New Game
       </button>
       <button
         className="btn btn-primary m-2"
-        onClick={handleReset}
+        onClick={() => {
+          setGuesses([]);
+        }}
       >
         Reset
       </button>
       <GuessWordList guesses={guesses} />
-      {guesses.length <= CURRENT_GUESSES && (
-        <GuessProvider handleGuess={handleGuess} />
+      {checkPlayableGame() && (
+        <GuessProvider
+          handleGuess={handleGuess}
+          guesses={guesses}
+        />
+      )}
+
+      {guesses.length > GUESSES_ALLOWED && (
+        <div>{`You lost. Word was ${data}`}</div>
       )}
     </div>
   );
