@@ -14,7 +14,6 @@ function compareWordandAnswer(answer, guess) {
   const answerCharCounter = counter(answer);
   // check letters for correct positions
   for (let i = 0; i < answer.length; i++) {
-    console.log(answerCharCounter);
     const charComparison = { 'letter': guess[i], category: '' };
     let letterCount = answerCharCounter.get(guess[i]) || 0;
 
@@ -23,19 +22,21 @@ function compareWordandAnswer(answer, guess) {
       answerCharCounter.set(guess[i], --letterCount);
     }
     guessComparison.push(charComparison);
+    console.log(charComparison);
   }
 
   for (let i = 0; i < answer.length; i++) {
     let charComparison = guessComparison[i];
     let letterCount = answerCharCounter.get(guess[i]) || 0;
 
-    if (letterCount > 0) {
+    if (letterCount > 0 && charComparison.category === '') {
       charComparison.category = 'exists';
       answerCharCounter.set(guess[i], --letterCount);
     }
   }
   return guessComparison;
 }
+
 /**
  * Given guess like [{ 'letter': str, category: str }, ...], checks if every
  * category is 'correct'. If so returns true, else returns false
@@ -52,10 +53,8 @@ function getAllGuessedLetters(guesses) {
   console.log('getAllGuessedLetters', guesses);
   const guessLetters = guesses.flat();
   const lettersGuessed = {};
-  console.log('flat letter array', guessLetters);
 
   for (const guessLetter of guessLetters) {
-    console.log('guessLetter', guessLetter);
     const currentLetter = guessLetter.letter;
     if (!(currentLetter in lettersGuessed)) {
       lettersGuessed[currentLetter] = guessLetter.category;
