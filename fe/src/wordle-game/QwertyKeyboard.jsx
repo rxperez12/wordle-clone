@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./QwertyKeyboard.css";
+import { getAllGuessedLetters } from "../gameLogic";
 
 /** AppComponent for summary
  *
@@ -13,7 +14,7 @@ import "./QwertyKeyboard.css";
  *
  *
  */
-function QwertyKeyboard({ value, onKeyPress }) {
+function QwertyKeyboard({ value, onKeyPress, guesses }) {
   const handleKeyPress = (key) => {
     console.log(`button pressed: ${key}, value: ${value}`);
     onKeyPress(`${value}${key}`);
@@ -25,8 +26,27 @@ function QwertyKeyboard({ value, onKeyPress }) {
     ["z", "x", "c", "v", "b", "n", "m"],
   ];
 
+  const lettersGuessed = getAllGuessedLetters(guesses);
+
+  /** Changes button color based on whether the letter is part of correct */
+  function changeColorModifier(key) {
+    if (lettersGuessed[key] === "correct") {
+      return "btn-success";
+    }
+
+    if (lettersGuessed[key] === "exists") {
+      return "btn-warning";
+    }
+
+    if (lettersGuessed[key] === "") {
+      return "btn-dark";
+    }
+
+    return "btn-secondary";
+  }
+
   return (
-    <div className="QwertyKeyboard d-flex flex-column align-items-center">
+    <div className="QwertyKeyboard  d-flex flex-column align-items-center">
       {rows.map((row, rowIndex) => (
         <div
           key={rowIndex}
@@ -34,11 +54,10 @@ function QwertyKeyboard({ value, onKeyPress }) {
         >
           {row.map((key) => (
             <button
-              className={`QwertyKeyButton btn m-1 `}
+              className={`QwertyKeyButton btn ${changeColorModifier(key)} m-1`}
               key={key}
               onClick={(e) => {
                 e.preventDefault();
-                console.log(e);
                 handleKeyPress(key);
               }}
             >
