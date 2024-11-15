@@ -5,7 +5,7 @@ import GuessWordList from "./GuessWordList.jsx";
 import GuessProvider from "./GuessProvider.jsx";
 import "./WordleGame.css";
 
-const BASE_URL = "http://localhost:8000";
+const BASE_URL = "http://localhost:5000";
 const GUESSES_ALLOWED = 5;
 
 /** WordleGame component
@@ -37,7 +37,7 @@ function WordleGame() {
 
   /* Retrieve guess word from API*/
   async function retrieveWord() {
-    const response = await fetch(`${BASE_URL}/word/`);
+    const response = await fetch(`${BASE_URL}/word`);
     if (!response.ok) {
       throw new Error("Network response was not ok.");
     }
