@@ -13,7 +13,7 @@ import GuessEnterForm from "./GuessEnterForm";
  *
  * WordleGame -> GuessProvider -> {FormProvider, GuessEnterForm}
  */
-function GuessProvider({ handleGuess }) {
+function GuessProvider({ handleGuess, guesses }) {
   const methods = useForm({
     criteriaMode: "all",
     defaultValues: {
@@ -23,7 +23,10 @@ function GuessProvider({ handleGuess }) {
 
   return (
     <FormProvider {...methods}>
-      <GuessEnterForm handleGuess={handleGuess} />
+      <GuessEnterForm
+        handleGuess={handleGuess}
+        guesses={guesses}
+      />
     </FormProvider>
   );
 }
