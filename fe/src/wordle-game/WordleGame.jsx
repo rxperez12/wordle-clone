@@ -37,7 +37,7 @@ function WordleGame() {
 
   /* Retrieve guess word from API*/
   async function retrieveWord() {
-    const response = await fetch(`${BASE_URL}/word`);
+    const response = await fetch(`${BASE_URL}/wordle`);
     if (!response.ok) {
       throw new Error("Network response was not ok.");
     }
