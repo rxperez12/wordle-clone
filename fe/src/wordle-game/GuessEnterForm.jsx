@@ -37,6 +37,7 @@ function GuessEnterForm({ handleGuess, guesses }) {
   const {
     control,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useFormContext({ criteriaMode: "all" });
 
@@ -44,6 +45,7 @@ function GuessEnterForm({ handleGuess, guesses }) {
   function onSubmit(data) {
     console.log("onSubmit data", data);
     handleGuess(data.word);
+    reset()
   }
 
   return (
