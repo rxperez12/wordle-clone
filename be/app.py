@@ -6,8 +6,6 @@ import word_logic
 app = Flask(__name__)
 CORS(app)
 
-app.config['SQLALCHEMY_DATABASE_URI'] = os.environ['DATABASE_URL']
-
 
 @app.get('/wordle')
 def get_word():
