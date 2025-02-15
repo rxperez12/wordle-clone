@@ -1,3 +1,13 @@
+@import "bootstrap";
+
 .QwertyKeyButton {
   background-color: grey;
+}
+
+.exists {
+  background-color: goldenrod;
+}
+
+.correct {
+  background-color: green;
 }
