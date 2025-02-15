@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { BrowserRouter } from "react-router-dom";
-import NavBar from "./routes-nav/NavBar";
 import WordleGame from "./wordle-game/WordleGame";
 
 import "./App.css";
