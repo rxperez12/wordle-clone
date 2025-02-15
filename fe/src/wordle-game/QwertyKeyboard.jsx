@@ -2,18 +2,7 @@ import React, { useState } from "react";
 import "./QwertyKeyboard.css";
 import { getAllGuessedLetters } from "../gameLogic";
 
-/** AppComponent for summary
- *
- * Props:
- * -value
- * -onKeyPress
- *
- *
- * State:
- * -
- *
- *
- */
+
 function QwertyKeyboard({ value, onKeyPress, guesses }) {
   const handleKeyPress = (key) => {
     console.log(`button pressed: ${key}, value: ${value}`);
