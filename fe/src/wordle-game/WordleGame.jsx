@@ -5,7 +5,7 @@ import GuessWordList from "./GuessWordList.jsx";
 import GuessProvider from "./GuessProvider.jsx";
 import "./WordleGame.css";
 
-const BASE_URL = "http://localhost:5000";
+const BASE_URL = import.meta.env.VITE_REACT_APP_BASE_URL || "http://localhost:5000";
 const GUESSES_ALLOWED = 5;
 
 /** WordleGame component
